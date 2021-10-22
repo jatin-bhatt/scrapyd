@@ -54,7 +54,7 @@ class Schedule(WsResource):
         jobid = args.pop('jobid', uuid.uuid1().hex) 
         args['_job'] = jobid
         header = txrequest.getHeader('x-amzn-oidc-data')
-        if header is None:
+        if header == None:
             args['x-amzn-oidc-data'] = ""
         else 
             args['x-amzn-oidc-data'] = header
