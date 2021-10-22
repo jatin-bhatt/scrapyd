@@ -51,9 +51,13 @@ class Schedule(WsResource):
         if not spider in spiders:
             return {"status": "error", "message": "spider '%s' not found" % spider}
         args['settings'] = settings
-        jobid = args.pop('jobid', uuid.uuid1().hex)
+        jobid = args.pop('jobid', uuid.uuid1().hex) 
         args['_job'] = jobid
-        args['x-amzn-oidc-data'] = txrequest.getHeader('x-amzn-oidc-data')
+        header = txrequest.getHeader('x-amzn-oidc-data')
+        if header is None:
+            args['x-amzn-oidc-data'] = ""
+        else 
+            args['x-amzn-oidc-data'] = header
         self.root.scheduler.schedule(project, spider, priority=priority, **args)
         return {"node_name": self.root.nodename, "status": "ok", "jobid": jobid}
 
