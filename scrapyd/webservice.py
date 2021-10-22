@@ -53,11 +53,11 @@ class Schedule(WsResource):
         args['settings'] = settings
         jobid = args.pop('jobid', uuid.uuid1().hex) 
         args['_job'] = jobid
-        header = txrequest.getHeader('x-amzn-oidc-data')
-        if header == None:
-            args['x-amzn-oidc-data'] = ""
-        else 
-            args['x-amzn-oidc-data'] = header
+        #header = txrequest.getHeader('x-amzn-oidc-data')
+        #if header == None:
+        args['x-amzn-oidc-data'] = ""
+        #else 
+        #args['x-amzn-oidc-data'] = header
         self.root.scheduler.schedule(project, spider, priority=priority, **args)
         return {"node_name": self.root.nodename, "status": "ok", "jobid": jobid}
 
